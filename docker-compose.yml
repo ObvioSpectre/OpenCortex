@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: conversational_bi_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: analytics
+      MYSQL_USER: app_admin
+      MYSQL_PASSWORD: app_admin_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./backend/samples/sample_mysql_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./backend/samples/mysql_readonly_user.sql:/docker-entrypoint-initdb.d/02_readonly.sql:ro
